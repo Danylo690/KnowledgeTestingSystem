@@ -1,38 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL.Contexts;
 using DAL.Interfaces;
 using DAL.Models;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
     public class AnswersRepository : IAnswersRepository
     {
-        public Task<Answer> CreateAsync(Answer answer)
+        private readonly KnowledgeTestingContext _knowledgeTestingContext;
+
+        public AnswersRepository(KnowledgeTestingContext knowledgeTestingContext)
         {
-            throw new NotImplementedException();
+            _knowledgeTestingContext = knowledgeTestingContext;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<Answer> CreateAsync(Answer answer)
         {
-            throw new NotImplementedException();
+            _knowledgeTestingContext.Answers.Add(answer);
+
+            await _knowledgeTestingContext.SaveChangesAsync();
+
+            return answer;
         }
 
-        public Task<IEnumerable<Answer>> GetAllAsync()
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var item = _knowledgeTestingContext.Answers.Attach(new Answer { Id = id });
+            var result = item != null;
+
+            if (result)
+            {
+                _knowledgeTestingContext.Entry(item).State = EntityState.Deleted;
+                await _knowledgeTestingContext.SaveChangesAsync();
+            }
+
+            return result;
         }
 
-        public Task<Answer> GetByIdAsync(int id)
+        public async Task<IEnumerable<Answer>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _knowledgeTestingContext.Answers.ToListAsync();
         }
 
-        public Task<bool> UpdateAsync(Answer answer)
+        public async Task<Answer> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _knowledgeTestingContext.Answers.FindAsync(id);
+        }
+
+        public async Task<bool> UpdateAsync(Answer answer)
+        {
+            var item = _knowledgeTestingContext.Answers.Attach(answer);
+            _knowledgeTestingContext.Entry(answer).State = EntityState.Modified;
+            await _knowledgeTestingContext.SaveChangesAsync();
+
+            return item != null;
         }
     }
 }

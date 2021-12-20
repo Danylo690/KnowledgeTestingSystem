@@ -1,38 +1,61 @@
-﻿using DAL.Interfaces;
+﻿using DAL.Contexts;
+using DAL.Interfaces;
 using DAL.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
     public class TestsRepository : ITestsRepository
     {
-        public Task<Test> CreateAsync(Test test)
+        private readonly KnowledgeTestingContext _knowledgeTestingContext;
+
+        public TestsRepository(KnowledgeTestingContext knowledgeTestingContext)
         {
-            throw new NotImplementedException();
+            _knowledgeTestingContext = knowledgeTestingContext;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<Test> CreateAsync(Test test)
         {
-            throw new NotImplementedException();
+            _knowledgeTestingContext.Tests.Add(test);
+
+            await _knowledgeTestingContext.SaveChangesAsync();
+
+            return test;
         }
 
-        public Task<IEnumerable<Test>> GetAllAsync()
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var item = _knowledgeTestingContext.Tests.Attach(new Test { Id = id });
+            var result = item != null;
+
+            if (result)
+            {
+                _knowledgeTestingContext.Entry(item).State = EntityState.Deleted;
+                await _knowledgeTestingContext.SaveChangesAsync();
+            }
+
+            return result;
         }
 
-        public Task<Test> GetByIdAsync(int id)
+        public async Task<IEnumerable<Test>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _knowledgeTestingContext.Tests.ToListAsync();
         }
 
-        public Task<bool> UpdateAsync(Test test)
+        public async Task<Test> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _knowledgeTestingContext.Tests.FindAsync(id);
+        }
+
+        public async Task<bool> UpdateAsync(Test test)
+        {
+            var item = _knowledgeTestingContext.Tests.Attach(test);
+            _knowledgeTestingContext.Entry(test).State = EntityState.Modified;
+            await _knowledgeTestingContext.SaveChangesAsync();
+
+            return item != null;
         }
     }
 }
