@@ -9,12 +9,16 @@ namespace DAL.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
 
         [Required]
         public bool IsCorrect { get; set; }
+
+        [ForeignKey(nameof(Question))]
+        public int QuestionId { get; set; }
+
+        public Question Question { get; set; }
     }
 }

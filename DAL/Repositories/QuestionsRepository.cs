@@ -42,12 +42,12 @@ namespace DAL.Repositories
 
         public async Task<IEnumerable<Question>> GetAllAsync()
         {
-            return await _knowledgeTestingContext.Questions.ToListAsync();
+            return await _knowledgeTestingContext.Questions.Include(x => x.Answers).ToListAsync();
         }
 
         public async Task<Question> GetByIdAsync(int id)
         {
-            return await _knowledgeTestingContext.Questions.FindAsync(id);
+            return await _knowledgeTestingContext.Questions.Include(x => x.Answers).FirstAsync(x => x.Id == id);
         }
 
         public async Task<bool> UpdateAsync(Question question)

@@ -5,15 +5,27 @@
 }
 
 <div>
-    <div class="name text-center">
+    <div class="text-center name">
         @Html.DisplayFor(x => x.Name)
     </div>
-    <div>
-        @{ 
-            for (int i = 1; i < Model.Questions.Count(); i++)
-            {
-               @Html.DisplayFor(x => Model.Questions[i])
-            }
+    @{ 
+        for(int i = 1; i <= Model.Questions.Count(); i++)
+        {
+            <div class="description ps-4">
+                @Html.DisplayFor(x => i).
+                @Html.DisplayFor(x => Model.Questions[i - 1].Name)
+                ( @Html.DisplayFor(x => Model.Questions[i - 1].Grade) point(s) )
+            </div>
+            <div>
+                @Html.ActionLink("Show answers", "Details", "Question", new { Id = Model.Questions[i - 1].Id }, new { @class = "btn btn-default ps-4" })
+            </div>
         }
+    <div class="text-center">
+        @Html.ActionLink("Create question", "Create", "Question", new { TestId = Model.Id }, new { @class = "btn btn-default p-0" })
+
     </div>
+    <div class="text-center">
+        @Html.ActionLink("Back to list", "Index", "Test", null, new { @class = "btn btn-default p-0" })
+    </div>
+    }
 </div>

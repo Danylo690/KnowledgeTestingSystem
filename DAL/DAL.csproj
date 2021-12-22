@@ -58,12 +58,20 @@
     <Compile Include="Interfaces\IQuestionsRepository.cs" />
     <Compile Include="Interfaces\ITestsRepository.cs" />
     <Compile Include="Migrations\202112201420065_AddedModels.cs" />
-    <Compile Include="Migrations\202112201420065_AddedModels.designer.cs">
+    <Compile Include="Migrations\202112201420065_AddedModels.Designer.cs">
       <DependentUpon>202112201420065_AddedModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202112211724523_ChangeStringLentgh.cs" />
-    <Compile Include="Migrations\202112211724523_ChangeStringLentgh.designer.cs">
+    <Compile Include="Migrations\202112211724523_ChangeStringLentgh.Designer.cs">
       <DependentUpon>202112211724523_ChangeStringLentgh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112221003529_AddedForeignKeys.cs" />
+    <Compile Include="Migrations\202112221003529_AddedForeignKeys.Designer.cs">
+      <DependentUpon>202112221003529_AddedForeignKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112221802134_ChangeIncorrectName.cs" />
+    <Compile Include="Migrations\202112221802134_ChangeIncorrectName.designer.cs">
+      <DependentUpon>202112221802134_ChangeIncorrectName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -84,6 +92,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112211724523_ChangeStringLentgh.resx">
       <DependentUpon>202112211724523_ChangeStringLentgh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112221003529_AddedForeignKeys.resx">
+      <DependentUpon>202112221003529_AddedForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112221802134_ChangeIncorrectName.resx">
+      <DependentUpon>202112221802134_ChangeIncorrectName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

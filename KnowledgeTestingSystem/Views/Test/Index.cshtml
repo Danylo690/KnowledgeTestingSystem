@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="card-body description p-2">
-                @Html.DisplayFor(x => item.Description)
+                @MvcHtmlString.Create(item.Description.Replace("\n", "<br>"))
             </div>
         }
     }

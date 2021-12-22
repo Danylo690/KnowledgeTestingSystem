@@ -1,5 +1,6 @@
 ﻿using DAL.Models;
 using System.Data.Entity;
+using System.Linq;
 
 namespace DAL.Contexts
 {

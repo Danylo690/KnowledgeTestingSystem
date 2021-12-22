@@ -18,5 +18,15 @@ namespace DAL.Models
         public int Grade { get; set; }
 
         public List<Answer> Answers { get; set; }
+
+        [ForeignKey(nameof(Test))]
+        public int TestId { get; set; }
+
+        public Test Test { get; set; }
+
+        public Question()
+        {
+            Answers = new List<Answer>();
+        }
     }
 }
