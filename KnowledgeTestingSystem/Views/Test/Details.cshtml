@@ -1,0 +1,19 @@
+﻿@model DAL.Models.Test
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <div class="name text-center">
+        @Html.DisplayFor(x => x.Name)
+    </div>
+    <div>
+        @{ 
+            for (int i = 1; i < Model.Questions.Count(); i++)
+            {
+               @Html.DisplayFor(x => Model.Questions[i])
+            }
+        }
+    </div>
+</div>
