@@ -11,16 +11,13 @@
     <header class="p-3 bg-dark text-white">
         <div class="container width">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap" /></svg>
-                </a>
-
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li>@Html.ActionLink("Tests", "Index", "Test", null, new { @class = "nav-link px-2 text-white" })</li>
-                    <li>@Html.ActionLink("Create test", "Create", "Test", null, new { @class = "nav-link px-2 text-white" })</li>
-                    <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                    <li>@Html.ActionLink("Main", "Index", "Home", null, new { @class = "nav-link px-2 text-white" })</li>
+                    <li>@Html.ActionLink("Tests", "Index", "Tests", null, new { @class = "nav-link px-2 text-white" })</li>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Create test", "Create", "Tests", null, new { @class = "nav-link px-2 text-white" })</li>
+                    }
                 </ul>
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -28,8 +25,15 @@
                 </form>
 
                 <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
+                    @if (!this.User.IsInRole("User") && !this.User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Login", "Login", "Users", null, new { @class = "btn btn-outline-light me-2 p-2 text-white" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Sign out", "SignOut", "Users", null, new { @class = "btn btn-outline-light me-2 p-2 text-white" })
+                    }
+                    @Html.ActionLink("Sign Up", "SignUp", "Users", null, new { @class = "btn btn-warning p-2 text-black" })
                 </div>
             </div>
         </div>

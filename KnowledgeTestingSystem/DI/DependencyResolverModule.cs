@@ -13,10 +13,12 @@ namespace KnowledgeTestingSystem.DI
             Bind<ITestsService>().To<TestsService>();
             Bind<IAnswersService>().To<AnswersService>();
             Bind<IQuestionsService>().To<QuestionsService>();
+            Bind<IUsersService>().To<UsersService>();
 
             Bind<ITestsRepository>().To<TestsRepository>();
             Bind<IQuestionsRepository>().To<QuestionsRepository>();
             Bind<IAnswersRepository>().To<AnswersRepository>();
+            Bind<IUsersRepository>().To<UsersRepository>();
         }
     }
 }

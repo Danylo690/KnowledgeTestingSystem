@@ -5,11 +5,11 @@ using System.Web.Mvc;
 
 namespace KnowledgeTestingSystem.Controllers
 {
-    public class TestController : Controller
+    public class TestsController : Controller
     {
         private readonly ITestsService _testsService;
 
-        public TestController(ITestsService testsService)
+        public TestsController(ITestsService testsService)
         {
             _testsService = testsService;
         }
@@ -21,6 +21,7 @@ namespace KnowledgeTestingSystem.Controllers
         }
 
         // GET: Test/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View(new Test());

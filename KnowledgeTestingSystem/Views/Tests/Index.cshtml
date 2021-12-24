@@ -10,7 +10,7 @@
         {
             <div class="card-header p-0">
                 <div class="name">
-                    @Html.ActionLink(item.Name, "Details", "Test", new { Id = item.Id }, new { @class = "nav-link px-2 text-black" })
+                    @Html.ActionLink(item.Name, "Details", "Tests", new { Id = item.Id }, new { @class = "nav-link px-2 text-black" })
                 </div>
                 <div class="count-of-question card-header">
                     @item.Questions.Count() question(s)

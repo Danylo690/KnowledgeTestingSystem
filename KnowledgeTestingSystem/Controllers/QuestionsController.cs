@@ -9,11 +9,11 @@ using System.Web.Mvc;
 
 namespace KnowledgeTestingSystem.Controllers
 {
-    public class QuestionController : Controller
+    public class QuestionsController : Controller
     {
         private readonly IQuestionsService _questionsService;
 
-        public QuestionController(IQuestionsService questionsService)
+        public QuestionsController(IQuestionsService questionsService)
         {
             _questionsService = questionsService;
         }
