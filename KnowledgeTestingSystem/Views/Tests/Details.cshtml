@@ -4,31 +4,27 @@
     ViewBag.Title = "Details";
 }
 
-<div>
-    <div class="text-center name">
-        @Html.DisplayFor(x => x.Name)
-    </div>
-    @{
-        if (this.User.IsInRole("Admin"))
-        {
-            for (int i = 1; i <= Model.Questions.Count(); i++)
+<div class="p-0">
+    <ul class="list-group">
+        <li class="list-group-item active">@Html.DisplayFor(x => x.Name)</li>
+        @{
+            if (this.User.IsInRole("Admin"))
             {
-                <div class="description ps-4">
-                    @Html.DisplayFor(x => i).
-                    @Html.DisplayFor(x => Model.Questions[i - 1].Name)
-                    ( @Html.DisplayFor(x => Model.Questions[i - 1].Grade) point(s) )
-                </div>
-                <div>
-                    @Html.ActionLink("Show answers", "Details", "Questions", new { Id = Model.Questions[i - 1].Id }, new { @class = "btn btn-default ps-4" })
+                foreach (DAL.Models.Question item in Model.Questions)
+                {
+                    <li class="list-group-item">
+                        @Html.DisplayFor(x => item.Name)
+                        ( @Html.DisplayFor(x => item.Grade) point(s) )
+                        @Html.ActionLink("Show answers", "Details", "Questions", new { Id = item.Id }, new { @class = "btn btn-outline-secondary p-1" })
+                        @Html.ActionLink("Delete question", "Delete", "Questions", new { Id = item.Id, TestId = item.TestId }, new { @class = "btn btn-outline-secondary p-1" })
+                    </li>
+                }
+                <div class="pt-4 ps-3">
+                    @Html.ActionLink("Create question", "Create", "Questions", new { TestId = Model.Id }, new { @class = "btn btn-primary btn-lg p-2 me-sm-3" })
+                    @Html.ActionLink("Back to list", "Index", "Tests", null, new { @class = "btn btn-outline-secondary btn-lg px-4" })
                 </div>
             }
-            <div class="text-center">
-                @Html.ActionLink("Create question", "Create", "Questions", new { TestId = Model.Id }, new { @class = "btn btn-default p-0" })
-
-            </div>
         }
-    }
-    <div class="text-center">
-        @Html.ActionLink("Back to list", "Index", "Tests", null, new { @class = "btn btn-default p-0" })
-    </div>
+    </ul>
 </div>
+

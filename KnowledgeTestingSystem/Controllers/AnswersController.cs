@@ -15,7 +15,7 @@ namespace KnowledgeTestingSystem.Controllers
         }
 
         // GET: Answer\Create
-        public ActionResult Create(int questionId, int testId)
+        public ActionResult Create(int questionId)
         {
             ViewData["id"] = questionId;
             return View(new Answer());
@@ -28,7 +28,29 @@ namespace KnowledgeTestingSystem.Controllers
             try
             {
                 await _answersService.CreateAsync(answer);
-                return RedirectToAction("Details", "Question", new { Id = questionId });
+                return RedirectToAction("Details", "Questions", new { Id = questionId });
+            }
+            catch
+            {
+                return View(new Answer());
+            }
+        }
+
+        // GET: Answer\Delete
+        public async Task<ActionResult> Delete(int id, int questionId)
+        {
+            ViewData["id"] = questionId;
+            return View(await _answersService.GetByIdAsync(id));
+        }
+
+        // POST: Answer\Delete
+        [HttpPost]
+        public async Task<ActionResult> Delete(int id, Answer answer, int questionId)
+        {
+            try
+            {
+                await _answersService.DeleteAsync(id);
+                return RedirectToAction("Details", "Questions", new { Id = questionId });
             }
             catch
             {
